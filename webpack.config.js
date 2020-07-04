@@ -10,6 +10,7 @@ const paths = {
   template: './source/views/index.html',
   entry: './source/views/index.js',
   output: '[name].[contenthash].js',
+  postcss: `./postcss.config.js`,
   fonts: {
     src: 'assets/fonts/**/*'
   },
@@ -71,6 +72,12 @@ module.exports = {
           'style-loader',
           MiniCssExtractPlugin.loader,
           'css-loader',
+          {
+            loader: "postcss-loader",
+            options: {
+              config: { path: paths.postcss }
+            }
+          },
           'sass-loader',
         ]
       },
@@ -80,6 +87,12 @@ module.exports = {
           "style-loader",
           MiniCssExtractPlugin.loader,
           'css-loader',
+          {
+            loader: "postcss-loader",
+            options: {
+              config: { path: paths.postcss }
+            }
+          }
         ]
       }
     ]
@@ -94,6 +107,7 @@ module.exports = {
       patterns: [
         { from: path.join(__dirname, `${paths.src}/assets/fonts`), to: path.join(__dirname, `${paths.root}/assets/fonts`) },
         { from: path.join(__dirname, `${paths.src}/assets/images`), to: path.join(__dirname, `${paths.root}/assets/images`) },
+        { from: path.join(__dirname, `${paths.src}/assets/scripts`), to: path.join(__dirname, `${paths.root}/assets/scripts`) },
         { from: path.join(__dirname, `${paths.src}/assets/static`), to: path.join(__dirname, `${paths.root}/assets/static`) },
         { from: path.join(__dirname, `${paths.src}/views/pages`), to: path.join(__dirname, `${paths.root}`) }
       ]
