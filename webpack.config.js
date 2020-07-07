@@ -4,6 +4,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
+const isDev = process.env.NODE_ENV === 'development';
+const isBuild = !isDev;
+
+const filename =  ext => isDev ? `[name].${ext}` : `[name].[hash].${ext}`;
+
 const paths = {
   root: './public',
   src: './source',
@@ -43,7 +48,7 @@ module.exports = {
     }
   },
   entry: {
-    index: paths.entry
+    main: paths.entry
   },
   module: {
     rules: [
@@ -98,7 +103,7 @@ module.exports = {
     ]
   },
   output: {
-    filename: paths.output,
+    filename: filename('js'),
     path: path.join(__dirname, paths.root)
   },
   plugins: [
@@ -116,7 +121,7 @@ module.exports = {
       template: paths.template
     }),
     new MiniCssExtractPlugin({
-      filename: paths.styles.common
+      filename: filename('css')
     })
   ],
 };
